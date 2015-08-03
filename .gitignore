@@ -10,3 +10,12 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/dakduck/nbproject/private/
+/dakduck.demo/nbproject/private/
+/dakduck.demo.plugins/nbproject/private/
+/dakduck/build/
+/dakduck/dist/
+/dakduck.demo/dist/
+/dakduck.demo/build/
+/dakduck.demo.plugins/dist/
+/dakduck.demo.plugins/build/
