@@ -19,3 +19,6 @@ hs_err_pid*
 /dakduck.demo/build/
 /dakduck.demo.plugins/dist/
 /dakduck.demo.plugins/build/
+/dakutils/build/
+/dakutils/dist/
+/dakutils/nbproject/private/
