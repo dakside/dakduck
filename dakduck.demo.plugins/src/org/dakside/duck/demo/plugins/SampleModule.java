@@ -30,10 +30,12 @@ import org.dakside.duck.plugins.Unloadable;
 public class SampleModule implements Unloadable {
 
     private static Component sampleConfigView = null;
+    private static Component sampleLogView = null;
 
     @Override
     public void unload() {
         sampleConfigView = null;
+        sampleLogView = null;
     }
 
     @Function(Text = "DemoPluginConfigView", Description = "DemoPluginConfigViewDesc",
@@ -48,10 +50,10 @@ public class SampleModule implements Unloadable {
     @Function(Text = "SampleLogView", Description = "SampleLogViewDesc",
             IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.STARTPAGE)
     public synchronized Component showLangViewStartPage() {
-        if (sampleConfigView == null) {
-            sampleConfigView = new SampleLogView();
+        if (sampleLogView == null) {
+            sampleLogView = new SampleLogView();
         }
-        return sampleConfigView;
+        return sampleLogView;
     }
 
     @Function(Text = "SampleAbout", Description = "SampleAboutDesc",
