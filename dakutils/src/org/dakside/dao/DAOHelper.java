@@ -16,8 +16,6 @@
  */
 package org.dakside.dao;
 
-import org.dakside.dao.DAOException;
-import org.dakside.exceptions.ArgumentException;
 import org.dakside.exceptions.ArgumentException;
 import org.dakside.utils.Validator;
 

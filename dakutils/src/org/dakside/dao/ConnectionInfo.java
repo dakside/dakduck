@@ -24,7 +24,7 @@ import org.dakside.exceptions.ArgumentException;
  * Default database connection information
  * @author LeTuanAnh <tuananh.ke@gmail.com>
  */
-public class ConnectionInfo {
+public final class ConnectionInfo {
 
     private int dbType = AbstractDAOFactory.DB4O_DATABASE;
     private String connectionString;
@@ -49,7 +49,7 @@ public class ConnectionInfo {
     /**
      * @param connectionString the connectionString to set
      */
-    public void setConnectionString(String connectionString) throws ArgumentException {
+    public final void setConnectionString(String connectionString) throws ArgumentException {
         Validator.argumentNotNull(connectionString, "Connection string cannot be null");
         this.connectionString = connectionString;
     }
@@ -68,7 +68,7 @@ public class ConnectionInfo {
     /**
      * @param dbType the dbType to set
      */
-    public void setDbType(int dbType) {
+    public final void setDbType(int dbType) {
         this.dbType = dbType;
     }
 

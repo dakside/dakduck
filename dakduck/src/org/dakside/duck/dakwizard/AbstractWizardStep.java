@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 /**
  * An abstract panel wizard step for DefaultWizardModel
  * @author LeTuanAnh <tuananh.ke@gmail.com>
+ * @param <T>
  */
 public abstract class AbstractWizardStep<T extends DefaultWizardModel> extends JPanel implements WizardStep {
 

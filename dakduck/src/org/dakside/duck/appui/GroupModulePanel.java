@@ -98,7 +98,9 @@ public class GroupModulePanel extends JTabbedPane {
             Component tab = new ModulePanel(groupButtons);
             Icon icon = getIcon(group.getTitle());
             //localized tab text
-            addTab(rc.getString("txt_" + group.getTitle()), icon, tab);
+            // TODO: Fix this (Use resource centre properly)
+            // addTab(rc.getString("txt_" + group.getTitle()), icon, tab);
+            addTab(DuckApp.getModuleUIConfig().getProperty("txt_" + group.getTitle()), icon, tab);
         }
     }
 

@@ -108,14 +108,14 @@ public abstract class DuckApp {
     }
     
     
-    protected static synchronized String getModuleFileName() {
+    public static synchronized String getModuleFileName() {
         if (modulesKey == null) {
             modulesKey = SystemHelper.getTextFromVMOption(CUSTOM_MODULES_KEY, MODULES_KEY_DEF);
         }
         return modulesKey;
     }
     
-    protected static synchronized String getModuleUIFileName() {
+    public static synchronized String getModuleUIFileName() {
         if (modulesUIKey == null) {
             modulesUIKey = SystemHelper.getTextFromVMOption(CUSTOM_MODULES_UI_KEY, MODULES_UI_KEY_DEF);
         }
