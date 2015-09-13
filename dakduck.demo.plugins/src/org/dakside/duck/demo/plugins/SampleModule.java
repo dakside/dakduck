@@ -19,6 +19,8 @@ package org.dakside.duck.demo.plugins;
 import org.dakside.duck.demo.plugins.demolog.democonfig.SampleConfigView;
 import org.dakside.duck.demo.plugins.demolog.SampleLogView;
 import java.awt.Component;
+import org.dakside.duck.dakwizard.WizardDialog;
+import org.dakside.duck.demo.plugins.wizards.NewUserWizardModel;
 import org.dakside.duck.plugins.AppCentral;
 import org.dakside.duck.plugins.Function;
 import org.dakside.duck.plugins.Unloadable;
@@ -29,8 +31,8 @@ import org.dakside.duck.plugins.Unloadable;
  */
 public class SampleModule implements Unloadable {
 
-    private static Component sampleConfigView = null;
-    private static Component sampleLogView = null;
+    private Component sampleConfigView = null;
+    private SampleLogView sampleLogView = null;
 
     @Override
     public void unload() {
@@ -50,6 +52,10 @@ public class SampleModule implements Unloadable {
     @Function(Text = "SampleLogView", Description = "SampleLogViewDesc",
             IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.STARTPAGE)
     public synchronized Component showLangViewStartPage() {
+        return getLogViewForm();
+    }
+
+    public SampleLogView getLogViewForm() {
         if (sampleLogView == null) {
             sampleLogView = new SampleLogView();
         }
@@ -61,6 +67,30 @@ public class SampleModule implements Unloadable {
     public synchronized Component showLangViewAbout() {
         AppCentral.getAPIDelegate().popup("I'm a sample plugin, more or less ...");
         return null;
+    }
+
+    @Function(Text = "btnNewUser", Description = "btnNewUserDesc",
+            IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.TOOLBAR)
+    public synchronized Component createNewUser() {
+        StringBuilder txtResults = new StringBuilder();
+        try {
+            NewUserWizardModel m = (NewUserWizardModel) WizardDialog.showDialog(new NewUserWizardModel(), "Create user wizard", "Actions");
+            if (m.isFinished()) {
+                txtResults.append("User information:\r\n");
+                txtResults.append("    + Username: ").append(m.getUserName()).append("\r\n");
+                txtResults.append("    + Birthday: ").append(m.getBirthday()).append("\r\n");
+                txtResults.append("    + Address : ").append(m.getAddress()).append("\r\n");
+                txtResults.append("    + Note    : ").append(m.getNote()).append("\r\n");
+            } else if (m.isCancelled()) {
+                txtResults.append("You cancelled the wizard!");
+            }
+
+        } catch (Exception ex) {
+            txtResults.append("Error was raised");
+        }
+
+        getLogViewForm().logMessage(txtResults.toString());
+        return getLogViewForm();
     }
 
 }

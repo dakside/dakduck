@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package examples.littlewizard;
+package org.dakside.duck.demo.plugins.wizards;
 
 import org.dakside.duck.dakwizard.DefaultWizardModel;
 import org.dakside.duck.dakwizard.WizardStep;
@@ -23,14 +23,15 @@ import java.util.ResourceBundle;
 
 /**
  * A sample wizard model with a linear path
+ *
  * @author LeTuanAnh <tuananh.ke@gmail.com>
  */
-public class MyWizardModel extends DefaultWizardModel {
+public class NewUserWizardModel extends DefaultWizardModel {
 
     private String[] holder = null;
 
-    public MyWizardModel() {
-        String wizardString = ResourceBundle.getBundle("examples.littlewizard.resources.MyWizardModel").getString("intro");
+    public NewUserWizardModel() {
+        String wizardString = ResourceBundle.getBundle("org.dakside.duck.demo.plugins.wizards.resources.NewUserWizardModel").getString("intro");
         WizardStep[] s = new WizardStep[]{
             new StaticTextStep(this, null, wizardString),
             new InputStep(this, "Name"),
@@ -51,5 +52,21 @@ public class MyWizardModel extends DefaultWizardModel {
      */
     public String[] getHolder() {
         return Arrays.copyOf(holder, holder.length);
+    }
+
+    public String getUserName() {
+        return holder[1];
+    }
+
+    public String getAddress() {
+        return holder[2];
+    }
+
+    public String getBirthday() {
+        return holder[3];
+    }
+
+    public String getNote() {
+        return holder[4];
     }
 }

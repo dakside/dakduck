@@ -96,9 +96,12 @@ public class SampleLogView extends javax.swing.JPanel {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         String reply = controller.analyse(txtMessage.getText());
-        txtLog.setText(txtLog.getText() + reply + "\n");
+        logMessage(reply);
     }//GEN-LAST:event_btnOKActionPerformed
 
+    public void logMessage(String message) {
+        txtLog.setText(txtLog.getText() + message + "\n");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;

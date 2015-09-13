@@ -20,7 +20,7 @@
  *
  * Created on Jan 24, 2010, 11:19:00 AM
  */
-package examples.littlewizard;
+package org.dakside.duck.demo.plugins.wizards;
 
 import org.dakside.duck.dakwizard.AbstractWizardStep;
 import javax.swing.Icon;
@@ -29,16 +29,19 @@ import javax.swing.Icon;
  * A sample static step (does not require focus)
  * @author LeTuanAnh <tuananh.ke@gmail.com>
  */
-public class StaticTextStep extends AbstractWizardStep<MyWizardModel> {
+public class StaticTextStep extends AbstractWizardStep<NewUserWizardModel> {
 
-    /** Creates new form StaticTextStep */
-    public StaticTextStep(MyWizardModel model, Icon image, String text) {
+    /** Creates new form StaticTextStep
+     * @param model
+     * @param image
+     * @param text */
+    public StaticTextStep(NewUserWizardModel model, Icon image, String text) {
         super(model, false);
         initComponents();
         if (image == null) {
-            jLabel1.setVisible(false);
+            imageBox.setVisible(false);
         } else {
-            jLabel1.setIcon(image);
+            imageBox.setIcon(image);
 
         }
         txtStaticText.setText(text);
@@ -54,35 +57,38 @@ public class StaticTextStep extends AbstractWizardStep<MyWizardModel> {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        imageBox = new javax.swing.JLabel();
         txtStaticText = new javax.swing.JLabel();
 
-        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        imageBox.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtStaticText.setText("jLabel2");
         txtStaticText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        txtStaticText.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(imageBox, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStaticText, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addComponent(txtStaticText, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(txtStaticText, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtStaticText, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                    .addComponent(imageBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel imageBox;
     private javax.swing.JLabel txtStaticText;
     // End of variables declaration//GEN-END:variables
 
