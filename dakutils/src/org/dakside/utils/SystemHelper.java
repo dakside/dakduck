@@ -23,8 +23,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * System related functions (get system values, user home folder, etc.)
  *
- * @author LeTuanAnh <tuananh.ke@gmail.com>
+ * @author Le Tuan Anh {@literal <tuananh.ke@gmail.com>}
  */
 public class SystemHelper {
 
@@ -71,19 +72,25 @@ public class SystemHelper {
     /**
      * Get a properties file by key<br/>
      *
-     * @param key the name of the config<br/>
+     * @param filename the name of the config<br/>
      * E.g.: java -DMYFILE=conf.properties -jar myapp.jar<br/>
      * Then key will be MYFILE
      * @return a properties object which contains every properties item or null
      * if the file content couldn't be read.
      */
-    public static Properties getPropertiesFromCustomFile(String key) {
+    public static Properties getPropertiesFromCustomFile(String filename) {
         try {
             Properties props = new Properties();
-            String configValue = getTextFromVMOption(key, "");
-            String absPath = Paths.get(configValue).toAbsolutePath().toString();
-            logger.log(Level.INFO, "I''m trying to load a file here: {0}", absPath);
-            props.load(new FileReader(absPath));
+
+            String absPath = Paths.get(filename).toAbsolutePath().toString();
+            if (FileUtil.isFile(absPath)) {
+                logger.log(Level.INFO, "I''m trying to load a properties file from file system at: {0}", absPath);
+                props.load(new FileReader(absPath));
+            } else {
+                logger.log(Level.WARNING, "I''m trying to load a default properties file from class path at: {0}".toUpperCase(), filename);
+
+                props.load(SystemHelper.class.getClassLoader().getResourceAsStream(filename));
+            }
             return props;
         } catch (Exception ex) {
             Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +110,8 @@ public class SystemHelper {
 
     /**
      * Get line separator (E.g. \r\n)
-     * @return 
+     *
+     * @return
      */
     public static String getLineSeparator() {
         return SystemHelper.getLineSeparator();
@@ -111,7 +119,8 @@ public class SystemHelper {
 
     /**
      * Get temporary directory
-     * @return 
+     *
+     * @return
      */
     public static String getTempDir() {
         return System.getProperty("java.io.tmpdir");
@@ -119,7 +128,8 @@ public class SystemHelper {
 
     /**
      * Get path separator character (should be \ in Windows and / in Linux)
-     * @return 
+     *
+     * @return
      */
     public static String getPathSeparator() {
         return System.getProperty("file.separator");

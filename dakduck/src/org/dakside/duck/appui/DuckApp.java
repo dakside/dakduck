@@ -31,9 +31,9 @@ import org.dakside.utils.SystemHelper;
 public abstract class DuckApp {
 
     private static final Logger logger = Logger.getLogger(DuckApp.class.getName());
-    
+
     private JFrame myFrame;
-    
+
     public JFrame getMyFrame() {
         return myFrame;
     }
@@ -60,6 +60,7 @@ public abstract class DuckApp {
 
         this.myFrame = myFrame;
     }
+
     private void startup() {
         // Execute custom startup
         customStartup();
@@ -87,40 +88,41 @@ public abstract class DuckApp {
     //<editor-fold defaultstate="collapsed" desc="Configuration support">
     protected static final String CUSTOM_MODULES_KEY = "CUSMOD";
     protected static final String CUSTOM_MODULES_UI_KEY = "CUSMODUI";
-    protected static final String MODULES_UI_KEY_DEF = "modulesUI.properties";
-    protected static final String MODULES_KEY_DEF = "modules.properties";
+    protected static final String MODULES_UI_KEY_DEF = "config/modulesUI.properties";
+    protected static final String MODULES_KEY_DEF = "config/modules.properties";
     private static Properties moduleConfig;
     private static Properties moduleUIConfig;
     private static String modulesKey;
     private static String modulesUIKey;
+
     protected static synchronized Properties getModuleConfig() {
         if (moduleConfig == null) {
-            moduleConfig = SystemHelper.getPropertiesFromCustomFile(CUSTOM_MODULES_KEY);
+            logger.log(Level.INFO, "Module file location: {0}", getModuleFileName());
+            moduleConfig = SystemHelper.getPropertiesFromCustomFile(getModuleFileName());
         }
         return moduleConfig;
     }
 
     protected static synchronized Properties getModuleUIConfig() {
         if (moduleUIConfig == null) {
-            moduleUIConfig = SystemHelper.getPropertiesFromCustomFile(CUSTOM_MODULES_UI_KEY);
+            moduleUIConfig = SystemHelper.getPropertiesFromCustomFile(getModuleUIFileName());
         }
         return moduleUIConfig;
     }
-    
-    
+
     public static synchronized String getModuleFileName() {
         if (modulesKey == null) {
             modulesKey = SystemHelper.getTextFromVMOption(CUSTOM_MODULES_KEY, MODULES_KEY_DEF);
         }
         return modulesKey;
     }
-    
+
     public static synchronized String getModuleUIFileName() {
         if (modulesUIKey == null) {
             modulesUIKey = SystemHelper.getTextFromVMOption(CUSTOM_MODULES_UI_KEY, MODULES_UI_KEY_DEF);
         }
         return modulesUIKey;
     }
-    
+
     //</editor-fold>
 }

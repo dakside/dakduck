@@ -176,4 +176,8 @@ public class FileUtil {
     public static void delete(String pathToFile) throws IOException {
         delete(Paths.get(pathToFile));
     }
+
+    static boolean isFile(String absPath) {
+        return new File(absPath).isFile();
+    }
 }

@@ -28,6 +28,7 @@ import org.dakside.utils.Localizable;
 import org.dakside.utils.ResourceCentre;
 
 /**
+ * Main Application GUI
  *
  * @author LeTuanAnh <tuananh.ke@gmail.com>
  */
@@ -41,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame implements AppCentralAPI, Loca
     public StartPage getStartPage() {
         return startPage;
     }
-    
+
     public void showStartPage() {
         if (startPage == null) {
             startPage = new StartPage();

@@ -71,7 +71,8 @@
 
     -->
     <target name="-post-jar">
-        <copy file="${src.dir}/config/cm.prop" todir="${dist.dir}/"/>
-        <copy file="${src.dir}/config/cmui.prop" todir="${dist.dir}/cmui.properties"/>
+        <copy file="${src.dir}/config/cm.prop" todir="${dist.dir}/config"/>
+        <copy file="${src.dir}/config/cmui.prop" todir="${dist.dir}/config"/>
+        <echo file="${dist.dir}/README.txt">To run this app, please use: java -DCUSMOD=config/cm.prop -DCUSMODUI=config/cmui.prop -jar ${application.title}.jar</echo>
     </target>
 </project>
