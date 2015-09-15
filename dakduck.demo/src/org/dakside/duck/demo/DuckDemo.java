@@ -39,14 +39,6 @@ public class DuckDemo extends DuckApp {
         // Try to run the app with this:
         //java -DCUSMOD=cm.prop -DCUSMODUI=cmui.prop -jar org.dakside.duck.demo.jar
 
-        try {
-            String modulesText = getModuleConfig().getProperty("modules");
-            String txtDemo = getModuleUIConfig().getProperty("txt_Demo");
-            System.out.printf("modules=%s\n", modulesText.replace(" ", " --- "));
-            System.out.printf("txt_Demo=%s\n", txtDemo);
-            System.out.printf("ModuleUIFile=%s\n", getModuleUIFileName());
-        } catch (Exception ex) {
-        }  
         mainGUI(args);
     }
 
@@ -55,7 +47,10 @@ public class DuckDemo extends DuckApp {
     }
 
     public static void mainGUI(String[] args) {
+        System.out.println("Setting up Java GUI LooknFeel");
+        System.out.println("--------------------------------------------------");
         DuckApp.loadLookAndFeel(LOOK_AND_FEEL_NAME);
+        System.out.println("--------------------------------------------------");
         //FunctionPool.getInstance().scan();
         FunctionPool.getInstance().scan(getCustomModules());
         DuckDemo demo = new DuckDemo(new MainFrame());
@@ -68,5 +63,15 @@ public class DuckDemo extends DuckApp {
 
     @Override
     protected void customStartup() {
+        // Custom setup code goes here
+        // For example, these lines will be executed before the main form is shown
+        try {
+            System.out.printf("Module configuration file=%s\n", getModuleFileName());
+            System.out.printf("Module UI configuration file=%s\n", getModuleUIFileName());
+            String modulesText = getModuleConfig().getProperty("modules");
+            System.out.printf("Available modules:\n\t%s", modulesText.replace(" ", "\n\t"));
+
+        } catch (Exception ex) {
+        }
     }
 }
