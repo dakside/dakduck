@@ -34,27 +34,6 @@ public class SampleModule implements Unloadable {
     private Component sampleConfigView = null;
     private SampleLogView sampleLogView = null;
 
-    @Override
-    public void unload() {
-        sampleConfigView = null;
-        sampleLogView = null;
-    }
-
-    @Function(Text = "DemoPluginConfigView", Description = "DemoPluginConfigViewDesc",
-            IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.MENU)
-    public synchronized Component showConfig() {
-        if (sampleConfigView == null) {
-            sampleConfigView = new SampleConfigView();
-        }
-        return sampleConfigView;
-    }
-
-    @Function(Text = "SampleLogView", Description = "SampleLogViewDesc",
-            IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.STARTPAGE)
-    public synchronized Component showLangViewStartPage() {
-        return getLogViewForm();
-    }
-
     public SampleLogView getLogViewForm() {
         if (sampleLogView == null) {
             sampleLogView = new SampleLogView();
@@ -62,13 +41,59 @@ public class SampleModule implements Unloadable {
         return sampleLogView;
     }
 
+    @Override
+    public void unload() {
+        sampleConfigView = null;
+        sampleLogView = null;
+    }
+
+    /**
+     * This create a menu item which shows a config form when clicked.
+     *
+     * @return
+     */
+    @Function(Text = "DemoPluginConfigView", Description = "DemoPluginConfigViewDesc",
+            IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.MENU)
+    public synchronized Component showConfigForm() {
+        if (sampleConfigView == null) {
+            sampleConfigView = new SampleConfigView();
+        }
+        return sampleConfigView;
+    }
+
+    /**
+     * This creates a button in a specific feature group in Start Page which
+     * shows the log form when clicked
+     *
+     * @return the form to be shown as a component
+     */
+    @Function(Text = "SampleLogView", Description = "SampleLogViewDesc",
+            IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.STARTPAGE)
+    public synchronized Component showLogForm() {
+        return getLogViewForm();
+    }
+
+    /**
+     * This creates a button on the toolbar of the main app which shows a
+     * message box when clicked. As demonstrated, the plugin feature doesn't
+     * necessarily return a component. In this case, it returns null.
+     *
+     * @return
+     */
     @Function(Text = "SampleAbout", Description = "SampleAboutDesc",
             IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.TOOLBAR)
-    public synchronized Component showLangViewAbout() {
+    public synchronized Component showAboutBox() {
         AppCentral.getAPIDelegate().popup("I'm a sample plugin, more or less ...");
         return null;
     }
 
+    /**
+     * This creates another button on the toolbar. When clicked it will first
+     * show a wizard dialog with several steps to user for data input. After
+     * that it will activate the log form to display results.
+     *
+     * @return
+     */
     @Function(Text = "btnNewUser", Description = "btnNewUserDesc",
             IconPath = "icon_demo_plugin", Category = "Demo", Location = Function.TOOLBAR)
     public synchronized Component createNewUser() {
