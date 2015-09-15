@@ -48,12 +48,14 @@ public class DuckFrame {
     private JToolBar mainToolbar;
     private JTabbedPane mainTabPane;
     private ResourceCentre rc;
+    private StartPage startPage;
 
-    public DuckFrame(JMenuBar menuBar, JToolBar mainToolbar, JTabbedPane mainTabPane, ResourceCentre rc) {
+    public DuckFrame(JMenuBar menuBar, JToolBar mainToolbar, JTabbedPane mainTabPane, ResourceCentre rc, StartPage startPage) {
         this.menuBar = menuBar;
         this.mainToolbar = mainToolbar;
         this.mainTabPane = mainTabPane;
         this.rc = rc;
+        this.startPage = startPage;
     }
 
     public void initCommand() {
@@ -172,6 +174,10 @@ public class DuckFrame {
         }
     }
 
+    public void refreshExtensions() {
+        this.refreshExtensions(this.startPage.isActivated());
+    }
+
     /**
      * Refresh tab-related buttons on main toolbar
      */
@@ -248,8 +254,7 @@ public class DuckFrame {
         mainTabPane.setSelectedComponent(c);
     }
     //</editor-fold>
-    
-    
+
     /**
      * set icon of a button
      *

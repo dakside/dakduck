@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 import org.dakside.duck.appui.DuckFrame;
+import org.dakside.duck.appui.StartPage;
 import org.dakside.duck.helpers.SwingHelper;
 import org.dakside.duck.plugins.AppCentralAPI;
 import org.dakside.duck.plugins.AppTab;
@@ -39,50 +40,13 @@ public class MainFrame extends javax.swing.JFrame implements AppCentralAPI, Loca
     private final DuckFrame duckFrame;
     private StartPage startPage = null;
 
-    public StartPage getStartPage() {
-        return startPage;
-    }
-
-    public void showStartPage() {
-        if (startPage == null) {
-            startPage = new StartPage();
-            startPage.addActiveStateChangedListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                    refreshExtensions();
-                }
-            });
-        }
-
-        refreshExtensions();
-        duckFrame.show(rc.getString("Start_Page"), startPage);
-    }
-
-    private void refreshExtensions() {
-        duckFrame.refreshExtensions(startPage.isActivated());
-    }
-
-    private void duckInit() {
-        //init commands
-        duckFrame.initCommand();
-
-        //show startup page
-        showStartPage();
-
-        //refresh extensions
-        refreshExtensions();
-
-        //localization
-        localize();
-    }
-
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
 
-        duckFrame = new DuckFrame(menuBar, mainToolbar, mainTabPane, rc);
+        duckFrame = new DuckFrame(menuBar, mainToolbar, mainTabPane, rc, getStartPage());
 
         duckInit();
     }
@@ -188,22 +152,6 @@ public class MainFrame extends javax.swing.JFrame implements AppCentralAPI, Loca
         showStartPage();
     }//GEN-LAST:event_btnStartPageActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartPage;
     private javax.swing.JButton jButton2;
@@ -219,6 +167,53 @@ public class MainFrame extends javax.swing.JFrame implements AppCentralAPI, Loca
     private javax.swing.JMenuItem mnuLicense;
     private javax.swing.JLabel statusMessageLabel;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Create a StartPage if it doesn't exist
+     *
+     * @return
+     */
+    public StartPage getStartPage() {
+        if (startPage == null) {
+            startPage = new DemoStartPage();
+            startPage.addActiveStateChangedListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    refreshExtensions();
+                }
+            });
+        }
+        return startPage;
+    }
+
+    /**
+     * Show start page
+     */
+    public void showStartPage() {
+        duckFrame.refreshExtensions();
+        duckFrame.show(rc.getString("Start_Page"), getStartPage().getView());
+    }
+
+    /**
+     * Reload extensions
+     */
+    private void refreshExtensions() {
+        duckFrame.refreshExtensions();
+    }
+
+    private void duckInit() {
+        //init commands
+        duckFrame.initCommand();
+
+        //show startup page
+        showStartPage();
+
+        //refresh extensions
+        refreshExtensions();
+
+        //localization
+        localize();
+    }
 
     @Override
     public void showView(Object view) {

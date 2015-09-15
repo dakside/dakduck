@@ -21,12 +21,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 import org.dakside.duck.appui.GroupModulePanel;
+import org.dakside.duck.appui.StartPage;
 
 /**
  *
  * @author LeTuanAnh <tuananh.ke@gmail.com>
  */
-public class StartPage extends JPanel {
+public class DemoStartPage extends JPanel implements StartPage {
 
     protected EventListenerList activationListener = new EventListenerList();
 
@@ -50,6 +51,7 @@ public class StartPage extends JPanel {
         }
     }
 
+    @Override
     public boolean isActivated() {
         return this.isEnabled();
     }
@@ -57,7 +59,7 @@ public class StartPage extends JPanel {
     /**
      * Creates new form StartPage
      */
-    public StartPage() {
+    public DemoStartPage() {
         initComponents();
 
         try {
@@ -102,6 +104,11 @@ public class StartPage extends JPanel {
 
     public GroupModulePanel getGroupModulePanel() {
         return groupModulePanel;
+    }
+
+    @Override
+    public JPanel getView() {
+        return this;
     }
 
 }

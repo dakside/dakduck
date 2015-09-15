@@ -17,6 +17,7 @@
 package org.dakside.duck.demo;
 
 import org.dakside.duck.appui.DuckApp;
+import org.dakside.duck.appui.GroupModulePanel;
 import org.dakside.duck.plugins.AppCentral;
 import org.dakside.duck.plugins.FunctionPool;
 
@@ -38,7 +39,6 @@ public class DuckDemo extends DuckApp {
     public static void main(String[] args) {
         // Try to run the app with this:
         //java -DCUSMOD=cm.prop -DCUSMODUI=cmui.prop -jar org.dakside.duck.demo.jar
-
         mainGUI(args);
     }
 
@@ -46,21 +46,9 @@ public class DuckDemo extends DuckApp {
         return getModuleConfig().getProperty("modules").split(" ");
     }
 
-    public static void mainGUI(String[] args) {
-        System.out.println("Setting up Java GUI LooknFeel");
-        System.out.println("--------------------------------------------------");
-        DuckApp.loadLookAndFeel(LOOK_AND_FEEL_NAME);
-        System.out.println("--------------------------------------------------");
-        //FunctionPool.getInstance().scan();
-        FunctionPool.getInstance().scan(getCustomModules());
-        DuckDemo demo = new DuckDemo(new MainFrame());
-        demo.mainFrame.getStartPage().getGroupModulePanel().updateResourceCentre(getModuleUIFileName());
-        demo.mainFrame.getStartPage().getGroupModulePanel().load();
-        // Indicate which is the main form
-        AppCentral.initApp(demo.mainFrame);
-        demo.start();
-    }
-
+    /**
+     * Code to run before the main application starts
+     */
     @Override
     protected void customStartup() {
         // Custom setup code goes here
@@ -73,5 +61,28 @@ public class DuckDemo extends DuckApp {
 
         } catch (Exception ex) {
         }
+    }
+
+    public static void mainGUI(String[] args) {
+        // Setting up Java GUI LooknFeel
+        DuckApp.loadLookAndFeel(LOOK_AND_FEEL_NAME);
+
+        // Scan for available modules and functions
+        FunctionPool.getInstance().scan(getCustomModules());
+
+        // Create application
+        DuckDemo demo = new DuckDemo(new MainFrame());
+        // Load localization file for modules
+        GroupModulePanel gmp = demo.mainFrame.getStartPage().getGroupModulePanel();
+        if (gmp != null) {
+            gmp.updateResourceCentre(getModuleUIFileName());
+            gmp.load();
+        }
+
+        // Indicate which is the main form
+        AppCentral.initApp(demo.mainFrame);
+
+        // Start application
+        demo.start();
     }
 }

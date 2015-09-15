@@ -40,6 +40,9 @@ public abstract class DuckApp {
 
     protected static void loadLookAndFeel(String lookAndFeelName) {
 
+        System.out.println("Setting up Java GUI LooknFeel");
+        System.out.println("--------------------------------------------------");
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code">
         try {
             UIManager.setLookAndFeel(Class.forName(lookAndFeelName).getName());
@@ -54,6 +57,7 @@ public abstract class DuckApp {
         }
         //</editor-fold>
 
+        System.out.println("--------------------------------------------------");
     }
 
     public DuckApp(JFrame myFrame) {
