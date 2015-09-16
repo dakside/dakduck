@@ -74,7 +74,11 @@
         <copy file="${src.dir}/config/cm.prop" todir="${dist.dir}/config"/>
         <copy file="${src.dir}/config/cmui.prop" todir="${dist.dir}/config"/>
         <copy file="${reference.demo_plugin.jar}" todir="${dist.dir}/lib"/>
-        <echo file="${dist.dir}/README.txt">To run this app, please use: java -DCUSMOD=config/cm.prop -DCUSMODUI=config/cmui.prop -cp "lib\*;.\org.dakside.duck.demo.jar" org.dakside.duck.demo.DuckDemo</echo>
+        <echo file="${dist.dir}/README.TXT">To run this app, please use: java -DCUSMOD=config/cm.prop -DCUSMODUI=config/cmui.prop -cp "lib\*;.\org.dakside.duck.demo.jar" org.dakside.duck.demo.DuckDemo</echo>
         <echo file="${dist.dir}/run.bat">java -DCUSMOD=config/cm.prop -DCUSMODUI=config/cmui.prop -Djava.util.logging.config.file=ducklog.txt -cp lib\*;.\org.dakside.duck.demo.jar org.dakside.duck.demo.DuckDemo</echo>
+        <echo file="${dist.dir}/run.sh">#!/bin/bash
+        
+java -DCUSMOD=config/cm.prop -DCUSMODUI=config/cmui.prop -Djava.util.logging.config.file=ducklog.txt -cp lib/*:./org.dakside.duck.demo.jar org.dakside.duck.demo.DuckDemo</echo>
+        <chmod file="${dist.dir}/run.sh" perm='u+x' />
     </target>
 </project>
